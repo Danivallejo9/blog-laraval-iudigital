@@ -22,7 +22,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('/posts', PostController::class);
+Route::resource('/post', PostController::class);
 Route::resource('/categories', CategoryController::class);
 
 Route::get('/', function(){

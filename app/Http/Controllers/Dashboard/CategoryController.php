@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Dashboard;
 
 
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\StoreRequest;
 
 class CategoryController extends Controller
 {
@@ -14,7 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index');
+        $categories = Category::paginate(2);    
+    /*    if (!Gate::allows('index', $posts[0])) {
+            abort(403);*/
+        return view('dashboard.category.index', compact('categories'));
     }
 
     /**
@@ -22,15 +27,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $category = new Category();
+        /* if (!Gate::allows('create', $post)) {
+            abort(403);
+        } */
+        return view('dashboard.category.create', compact('category'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $category = new Category($request->validated());
+        $category->save();
+        return redirect()->route('categories.index')->with('status', 'Nueva categoría creada');
     }
 
     /**
@@ -38,7 +49,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        return view('dashboard.category.show', compact('category'));
     }
 
     /**
@@ -46,7 +59,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        return view('dashboard.category.edit', compact('category'));
     }
 
     /**
@@ -54,7 +69,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+
+        return redirect()->route('categories.index')->with('status', 'Categoría actualizada exitosamente');
     }
 
     /**
@@ -62,6 +80,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('status', 'Categoría eliminada exitosamente');
     }
 }

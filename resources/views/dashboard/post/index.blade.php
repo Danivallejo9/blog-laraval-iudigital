@@ -15,11 +15,11 @@
         @foreach ($posts as $p)
         <tr>
             <td>{{ $p->title }}</td>
-            <td>{{ $p->category_id->title }}</td>
+            <td>{{ $p->category->title }}</td>
             <td>{{ $p->posted }}</td>
             <td width="10px">
                 <a class="btn btn-primary" href="{{ route('post.edit', $p) }}">Editar</a>
-                <a class="btn btn-primary" href="{{ route('post.show', $p) }}">Ver Detalle</a>
+                <a class="btn btn-primary" href="{{ route('post.show', $p) }}">Ver</a>
                 <form action="{{ route('post.destroy', $p) }}" method="POST">
                     @csrf
                     @method("DELETE")

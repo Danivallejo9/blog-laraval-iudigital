@@ -13,12 +13,13 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-<div class="container">
-    <div class="card card-white mt-4">
-        <div class="card-header">
-            @yield('content')
-        </div>    
+    <div class="container">
+        <div class="card card-white mt-4">
+            <div class="card-header">
+                @yield('content')
+            </div>    
+        </div>
     </div>
-</div>
 </body>
+
 </html>

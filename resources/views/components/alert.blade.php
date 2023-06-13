@@ -13,4 +13,3 @@
         filter:{{ $attributes->filter(fn(string $value, string $key) => $value == 'medium') }}
     </li>
 </ul>
-

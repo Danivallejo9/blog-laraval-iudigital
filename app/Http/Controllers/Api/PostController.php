@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Post\StoreRequest;
-use App\Http\Requests\Post\PutRequest;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\Post\PutRequest;
+use App\Http\Requests\Post\StoreRequest;
 
 class PostController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     */
-    public function all() {
-        return response()->json(Cache::remember('posts_all', now()->addMinutes(10), function() {
+
+    public function all()
+    {
+        return response()->json(Cache::remember('posts_all', now()->addMinutes(10), function () {
             return Post::all();
         }));
     }
@@ -34,13 +33,16 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Display the specified resource.
      */
-    public function show(Post $post ) 
+    public function show(Post $post)
     {
         return response()->json($post);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(PutRequest $request, Post $post)
     {
         $post->update($request->validated());
